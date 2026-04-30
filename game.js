@@ -158,10 +158,12 @@ class Logos extends Phaser.Scene {
             duration: 1250,
             ease: 'Quart.easeInOut',
         });
+
+        this.swap = this.input.keyboard.addKey('SPACE')
     }
 
     update(time) {
-        if (time/1000 > 5.5) {
+        if (time/1000 > 5.5 || Phaser.Input.Keyboard.JustDown(this.swap)) {
             this.scene.start('intro');
         }
     }
