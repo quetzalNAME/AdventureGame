@@ -92,13 +92,93 @@ class Demo2 extends AdventureScene {
     }
 }
 
-class Intro extends Phaser.Scene {
+class Logos extends Phaser.Scene {
     constructor() {
-        super('intro')
+        super('logos');
+    }
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('logo', 'badOmenlogo.png');
     }
     create() {
-        this.add.text(50,50, "Adventure awaits!").setFontSize(50);
-        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        let logoScale = 0.6;
+        let chosenScreenX = 1920;
+        let chosenScreenY = 1080;
+        let logoOffset = 20;
+
+        this.bg = this.add.rectangle(0, 0, chosenScreenX * 2, chosenScreenY * 2, 0xffffff, 1);
+
+        this.logo = this.add.image(-(chosenScreenX/2 - ('logo'.length)), chosenScreenY/2 - ('logo'.length + 20), 'logo');
+        this.logo.setScale(logoScale);
+
+        this.tweens.add({
+            targets: this.logo,
+            x: chosenScreenX/2 - ('logo'.length) - logoOffset,
+            y: chosenScreenY/2 - ('logo'.length + 20),
+            duration: 1250,
+            ease: 'Quart.easeInOut',
+        });
+
+        this.tagline = this.add.text(
+            -9000,
+            770 - 75,
+            "Bad Tagline, Good Games",
+            {fontFamily: "Gill Sans MT", fontWeight: "bold", fontSize: "75px", color: "#000000"}
+        );
+
+        this.tweens.add({
+            targets: this.tagline,
+            x: 775 - logoOffset,
+            alpha: 0,
+            duration: 0,
+        });
+
+        this.tweens.add({
+            targets: this.tagline,
+            x: 775 - logoOffset,
+            y: 770,
+            alpha: 1,
+            delay: 1500,
+            duration: 350,
+            ease: 'Quart.easeInOut',
+        });
+
+        this.tweens.add({
+            targets: this.logo,
+            alpha: 0,
+            delay: 3000,
+            duration: 1250,
+            ease: 'Quart.easeInOut',
+        });
+
+        this.tweens.add({
+            targets: this.tagline,
+            alpha: 0,
+            delay: 3000,
+            duration: 1250,
+            ease: 'Quart.easeInOut',
+        });
+    }
+
+    update(time) {
+        if (time/1000 > 5.5) {
+            this.scene.start('intro');
+        }
+    }
+}
+
+class Intro extends Phaser.Scene {
+    constructor() {
+        super('intro');
+    }
+    create() {
+        let alphabet_dict = {1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h', 9: 'i', 10: 'j', 11: 'k', 12: 'l', 13: 'm', 14: 'n', 15: 'o', 16: 'p', 17: 'q', 18: 'r', 19: 's', 20: 't', 21: 'u', 22: 'v', 23: 'w', 24: 'x', 25: 'y', 26: 'z'};
+        let parking_lane = alphabet_dict[Math.floor(Math.random() * 26) + 1].toUpperCase();
+
+        this.add.text(50,50, `You arrive at the Miami Zoo on December 24th!\n\nYou are parked at lane ${parking_lane}.`).setFontSize(50);
+
+        this.add.text(50,250, "Click anywhere to begin.").setFontSize(20);
+        
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('demo1'));
@@ -125,7 +205,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Intro, Demo1, Demo2, Outro],
+    scene: [Logos, Intro, Demo1, Demo2, Outro],
     title: "Adventure Game",
 });
 
