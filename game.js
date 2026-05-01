@@ -144,6 +144,9 @@ class Crocs extends AdventureScene {
             .on('pointerover', () => {
                 this.showMessage("It's a... DRAWcodile!\n\nGet it?")
             })
+            .on('pointerdown', () => {
+                this.showMessage('*CHOMP*');
+            })
     }
 }
 
@@ -175,6 +178,17 @@ class Tigers extends AdventureScene {
                 this.gotoScene('gibbons');
             })
 
+        let other = this.add.text(this.w * 0.1 + 175, this.w * 0.5 - 20, "???")
+            .setAngle(90)
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Unknown...");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('santa');
+            })
+
         this.add.image(this.w * 0.3, this.w * 0.35 + 25, 'tiger')
             .setInteractive()
             .setScale(0.75)
@@ -183,6 +197,46 @@ class Tigers extends AdventureScene {
             })
             .on('pointerdown', () => {
                 this.showMessage("The Sumatran tiger, like many other animals in the Miami Zoo is endangered.\n\nCoincedence?\nUnlikely...\n\nRawr.")
+            })
+    }
+}
+
+class Santa extends AdventureScene {
+    constructor() {
+        super("santa", "???");
+    }
+
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('santa', 'creepysanta.jpg');
+        this.load.image('arrow', 'arrow.png');
+        this.load.image('satan', 'santaedit.jpg');
+    }
+
+    onEnter() {
+        this.bg = this.add.image((1920 / 4) + 130, 1080 / 2, 'santa');
+        this.bg.setScale(0.6);
+
+        this.gb = this.add.image((1920 / 4) + 130, 1080 / 2, 'satan');
+        this.gb.setScale(0.6);
+
+        this.add.tween({
+            target: this.gb,
+            alpha: 0,
+            duration: 1000,
+            repeat: -1,
+        })
+            
+        this.add.image(this.w *0.6 + 100, this.w * 0.5, 'arrow').setScale(2.5);
+            
+        let forward = this.add.text(this.w * 0.5 + 175, this.w * 0.5 - 20, "Turn Back!")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Back to safety.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('tigers');
             })
     }
 }
@@ -395,6 +449,7 @@ class Outro extends Phaser.Scene {
     preload() {
         this.load.path = 'assets/';
         this.load.image('shop', 'giftshop.jpg');
+        this.load.audio('siamangcall', 'SIAMANG-GIBBONS-at-zoo-miami.mp3');
     }
 
     create() {
@@ -407,8 +462,8 @@ class Outro extends Phaser.Scene {
 `Another successful Zoo trip. Tradition fulfilled!
 
 But, wait. Where did you park?
-
-(You Won! Thanks for playing.)`,
+\n\n
+(You Won! Press 'SPACE' to play again\nand see the rest of the animals.)`,
             {fontFamily: "Gill Sans MT", fontWeight: "bold", fontSize: "85px", color: "#fff", stroke: "#000", strokeThickness: 7, align: 'center',
                 shadow: {
                     offsetX: 0,
@@ -427,6 +482,14 @@ But, wait. Where did you park?
             duration: 1000,
             ease: 'Quart.easeInOut'
         });
+
+        this.swap = this.input.keyboard.addKey('SPACE')
+    }
+
+    update() {
+        if (Phaser.Input.Keyboard.JustDown(this.swap)) {
+            this.scene.start('intro');
+        }
     }
 }
 
@@ -438,7 +501,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Logos, Intro, Front, Otters, Crocs, Tigers, Gibbons, Outro],
+    scene: [Logos, Intro, Front, Otters, Crocs, Tigers, Santa, Gibbons, Outro],
     title: "Adventure Game",
 });
 
