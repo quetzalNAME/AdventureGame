@@ -10,11 +10,15 @@ class Front extends AdventureScene {
     preload() {
         this.load.path = 'assets/';
         this.load.image('bg', 'zoofront.jpg');
+        this.load.image('arrow', 'arrow.png');
     }
 
     onEnter() {
         this.bg = this.add.image((1920 / 4) + 135, 1080 / 2, 'bg');
         this.bg.setScale(0.5);
+
+        this.add.image(this.w *0.3 - 75, this.w * 0.3 + 50, 'arrow').setAngle(-90 - 45).setAlpha(0.5);
+        this.add.image(this.w *0.3 + 175, this.w * 0.3 + 50, 'arrow').setAngle(-90 + 45).setAlpha(0.5);
 
         let left = this.add.text(this.w * 0.3 - 100, this.w * 0.325, "Left")
             .setFontSize(this.s * 2)
@@ -46,13 +50,16 @@ class Otters extends AdventureScene {
     preload() {
         this.load.path = 'assets/';
         this.load.image('otters', 'otters.jpg');
+        this.load.image('arrow', 'arrow.png');
     }
 
     onEnter() {
         this.bg = this.add.image((1920 / 4) + 215, 1080 / 2, 'otters');
         this.bg.setScale(1.25);
+
+        this.add.image(this.w *0.6 + 100, this.w * 0.5, 'arrow').setScale(2.5);
             
-        let forward = this.add.text(this.w * 0.5 + 100, this.w * 0.3, "Onward")
+        let forward = this.add.text(this.w * 0.5 + 175, this.w * 0.5 - 20, "Onward!")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -72,13 +79,28 @@ class Crocs extends AdventureScene {
     preload() {
         this.load.path = 'assets/';
         this.load.image('crocs', 'crocs.jpg');
+        this.load.image('arrow', 'arrow.png');
     }
 
     onEnter() {
         this.bg = this.add.image((1920 / 4) + 150, 1080 / 2, 'crocs');
         this.bg.setScale(1);
             
-        let forward = this.add.text(this.w * 0.5 + 100, this.w * 0.3, "Onward")
+        this.add.image(this.w *0.1 - 20, this.w * 0.5, 'arrow').setScale(2.5).setAngle(180);
+            
+        let Backward = this.add.text(this.w * 0.1 - 100, this.w * 0.5 - 20, "Backward!")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Walk back to the Otters?");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('otters');
+            })
+        
+        this.add.image(this.w *0.6 + 100, this.w * 0.5, 'arrow').setScale(2.5);
+            
+        let forward = this.add.text(this.w * 0.5 + 175, this.w * 0.5 - 20, "Onward!")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -98,13 +120,16 @@ class Tigers extends AdventureScene {
     preload() {
         this.load.path = 'assets/';
         this.load.image('tigers', 'tigers.jpg');
+        this.load.image('arrow', 'arrow.png');
     }
 
     onEnter() {
         this.bg = this.add.image((1920 / 4) + 130, 1080 / 2, 'tigers');
         this.bg.setScale(1.6);
             
-        let forward = this.add.text(this.w * 0.5 + 100, this.w * 0.3, "Onward")
+        this.add.image(this.w *0.6 + 100, this.w * 0.5, 'arrow').setScale(2.5);
+            
+        let forward = this.add.text(this.w * 0.5 + 175, this.w * 0.5 - 20, "Onward!")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -124,17 +149,32 @@ class Gibbons extends AdventureScene {
     preload() {
         this.load.path = 'assets/';
         this.load.image('gibbons', 'gibbons.jpg');
+        this.load.image('arrow', 'arrow.png');
     }
 
     onEnter() {
         this.bg = this.add.image((1920 / 4) - 10, 1080 / 2, 'gibbons');
         this.bg.setScale(1.5);
             
-        let forward = this.add.text(this.w * 0.5 + 100, this.w * 0.3, "Onward")
+        this.add.image(this.w *0.1 - 20, this.w * 0.5, 'arrow').setScale(2.5).setAngle(180);
+            
+        let Backward = this.add.text(this.w * 0.1 - 100, this.w * 0.5 - 20, "Backward!")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("Keep walking towards the Crocodiles.");
+                this.showMessage("Walk back to the Tigers?");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('tigers');
+            })
+        
+        this.add.image(this.w *0.6 + 100, this.w * 0.5, 'arrow').setScale(2.5);
+            
+        let forward = this.add.text(this.w * 0.5 + 175, this.w * 0.5 - 20, "Onward!")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Keep walking towards the Gibbons.");
             })
             .on('pointerdown', () => {
                 this.gotoScene('tigers');
@@ -237,7 +277,7 @@ class Intro extends Phaser.Scene {
 `You arrive at the Miami Zoo on
 December 24th, Christmas Eve.
 
-You are parked at lane '${parking_lane}'.`,
+You are parked in section '${parking_lane}'.`,
             {fontFamily: "Gill Sans MT", fontWeight: "bold", fontSize: "100px", color: "#fff", stroke: "#000", strokeThickness: 7, align: 'center',
                 shadow: {
                     offsetX: 0,
