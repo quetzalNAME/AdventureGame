@@ -1,94 +1,144 @@
-class Demo1 extends AdventureScene {
+let alphabet_dict = {1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h', 9: 'e', 10: 'j', 11: 'k', 12: 'l', 13: 'm', 14: 'n', 15: 'g', 16: 'p', 17: 'q', 18: 'r', 19: 's', 20: 't', 21: 'f', 22: 'v', 23: 'w', 24: 'b', 25: 'y', 26: 'z'};
+// some are remapped
+let parking_lane = alphabet_dict[Math.floor(Math.random() * 26) + 1].toUpperCase();
+
+class Front extends AdventureScene {
     constructor() {
-        super("demo1", "First Room");
+        super("front", "Zoo Entrance.");
+    }
+
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('bg', 'zoofront.jpg');
     }
 
     onEnter() {
+        this.bg = this.add.image((1920 / 4) + 135, 1080 / 2, 'bg');
+        this.bg.setScale(0.5);
 
-        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => this.showMessage("Metal, bent."))
-            .on('pointerdown', () => {
-                this.showMessage("No touching!");
-                this.tweens.add({
-                    targets: clip,
-                    x: '+=' + this.s,
-                    repeat: 2,
-                    yoyo: true,
-                    ease: 'Sine.inOut',
-                    duration: 100
-                });
-            });
-
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
+        let left = this.add.text(this.w * 0.3 - 100, this.w * 0.325, "Left")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("It's a nice key.")
+                this.showMessage("Go forward and LEFT, towards the Otters?");
             })
             .on('pointerdown', () => {
-                this.showMessage("You pick up the key.");
-                this.gainItem('key');
-                this.tweens.add({
-                    targets: key,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => key.destroy()
-                });
+                this.gotoScene('otters');
             })
-
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
+            
+        let right = this.add.text(this.w * 0.3 + 100, this.w * 0.325, "Right")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                if (this.hasItem("key")) {
-                    this.showMessage("You've got the key for this door.");
-                } else {
-                    this.showMessage("It's locked. Can you find a key?");
-                }
+                this.showMessage("Go forward and RIGHT, towards the Tigers?");
             })
             .on('pointerdown', () => {
-                if (this.hasItem("key")) {
-                    this.loseItem("key");
-                    this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
-                    this.gotoScene('demo2');
-                }
+                this.gotoScene('tigers');
             })
-
     }
 }
 
-class Demo2 extends AdventureScene {
+class Otters extends AdventureScene {
     constructor() {
-        super("demo2", "The second room has a long name (it truly does).");
+        super("otters", "Otter Exhibit.");
     }
+
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('otters', 'otters.jpg');
+    }
+
     onEnter() {
-        this.add.text(this.w * 0.3, this.w * 0.4, "just go back")
+        this.bg = this.add.image((1920 / 4) + 215, 1080 / 2, 'otters');
+        this.bg.setScale(1.25);
+            
+        let forward = this.add.text(this.w * 0.5 + 100, this.w * 0.3, "Onward")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
+                this.showMessage("Keep walking towards the Crocodiles.");
             })
             .on('pointerdown', () => {
-                this.gotoScene('demo1');
-            });
+                this.gotoScene('crocs');
+            })
+    }
+}
 
-        let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
+class Crocs extends AdventureScene {
+    constructor() {
+        super("crocs", "Crocodile Exhibit.");
+    }
+
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('crocs', 'crocs.jpg');
+    }
+
+    onEnter() {
+        this.bg = this.add.image((1920 / 4) + 150, 1080 / 2, 'crocs');
+        this.bg.setScale(1);
+            
+        let forward = this.add.text(this.w * 0.5 + 100, this.w * 0.3, "Onward")
+            .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage('*giggles*');
-                this.tweens.add({
-                    targets: finish,
-                    x: this.s + (this.h - 2 * this.s) * Math.random(),
-                    y: this.s + (this.h - 2 * this.s) * Math.random(),
-                    ease: 'Sine.inOut',
-                    duration: 500
-                });
+                this.showMessage("Keep walking towards the Crocodiles.");
             })
-            .on('pointerdown', () => this.gotoScene('outro'));
+            .on('pointerdown', () => {
+                this.gotoScene('otters');
+            })
+    }
+}
+
+class Tigers extends AdventureScene {
+    constructor() {
+        super("tigers", "Tiger Habitat.");
+    }
+
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('tigers', 'tigers.jpg');
+    }
+
+    onEnter() {
+        this.bg = this.add.image((1920 / 4) + 130, 1080 / 2, 'tigers');
+        this.bg.setScale(1.6);
+            
+        let forward = this.add.text(this.w * 0.5 + 100, this.w * 0.3, "Onward")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Keep walking towards the Gibbons.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('gibbons');
+            })
+    }
+}
+
+class Gibbons extends AdventureScene {
+    constructor() {
+        super("gibbons", "Gibbon Habitat.");
+    }
+
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('gibbons', 'gibbons.jpg');
+    }
+
+    onEnter() {
+        this.bg = this.add.image((1920 / 4) - 10, 1080 / 2, 'gibbons');
+        this.bg.setScale(1.5);
+            
+        let forward = this.add.text(this.w * 0.5 + 100, this.w * 0.3, "Onward")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Keep walking towards the Crocodiles.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('tigers');
+            })
     }
 }
 
@@ -173,17 +223,67 @@ class Intro extends Phaser.Scene {
     constructor() {
         super('intro');
     }
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('zoolot', 'zoo_lot.jpg');
+    }
     create() {
-        let alphabet_dict = {1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h', 9: 'i', 10: 'j', 11: 'k', 12: 'l', 13: 'm', 14: 'n', 15: 'o', 16: 'p', 17: 'q', 18: 'r', 19: 's', 20: 't', 21: 'u', 22: 'v', 23: 'w', 24: 'x', 25: 'y', 26: 'z'};
-        let parking_lane = alphabet_dict[Math.floor(Math.random() * 26) + 1].toUpperCase();
+        this.bg = this.add.image(1920 / 2, 1080 / 2, 'zoolot');
+        this.bg.setScale(1);
 
-        this.add.text(50,50, `You arrive at the Miami Zoo on December 24th!\n\nYou are parked at lane ${parking_lane}.`).setFontSize(50);
+        this.preamble = this.add.text(
+            300,
+            100 - 1000,
+`You arrive at the Miami Zoo on
+December 24th, Christmas Eve.
 
-        this.add.text(50,250, "Click anywhere to begin.").setFontSize(20);
+You are parked at lane '${parking_lane}'.`,
+            {fontFamily: "Gill Sans MT", fontWeight: "bold", fontSize: "100px", color: "#fff", stroke: "#000", strokeThickness: 7, align: 'center',
+                shadow: {
+                    offsetX: 0,
+                    offsetY: 0,
+                    color: '#000',
+                    blur: 30,
+                    stroke: true,
+                    fill: true
+                },
+            }
+        );
+
+        this.begin = this.add.text(
+            900 + 1100,
+            900,
+            "Click anywhere to begin.",
+            {fontFamily: "Gill Sans MT", fontWeight: "bold", fontSize: "90px", color: "#fff", stroke: "#000", strokeThickness: 5,
+                shadow: {
+                    offsetX: 0,
+                    offsetY: 0,
+                    color: '#000',
+                    blur: 20,
+                    stroke: true,
+                    fill: true
+                },
+            }
+        );
+
+        this.tweens.add({
+            targets: this.preamble,
+            y: 100,
+            duration: 1000,
+            ease: 'Quart.easeInOut'
+        });
+
+        this.tweens.add({
+            targets: this.begin,
+            x: 900,
+            delay: 1000,
+            duration: 2500,
+            ease: 'Quart.easeInOut'
+        });
         
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
-            this.time.delayedCall(1000, () => this.scene.start('demo1'));
+            this.time.delayedCall(1000, () => this.scene.start('front'));
         });
     }
 }
@@ -207,7 +307,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Logos, Intro, Demo1, Demo2, Outro],
+    scene: [Logos, Intro, Front, Otters, Crocs, Tigers, Gibbons, Outro],
     title: "Adventure Game",
 });
 
