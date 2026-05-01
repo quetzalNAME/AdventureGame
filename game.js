@@ -20,6 +20,12 @@ class Front extends AdventureScene {
         this.add.image(this.w *0.3 - 75, this.w * 0.3 + 50, 'arrow').setAngle(-90 - 45).setAlpha(0.5);
         this.add.image(this.w *0.3 + 175, this.w * 0.3 + 50, 'arrow').setAngle(-90 + 45).setAlpha(0.5);
 
+        this.add.text(this.w * 0.05, this.w * 0.275 + 75, '\n🦩').setFontSize("150px")
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage('\n🦩🦩🦩🦩🦩🦩🦩🦩');
+            })
+
         let left = this.add.text(this.w * 0.3 - 100, this.w * 0.325, "Left")
             .setFontSize(this.s * 2)
             .setInteractive()
