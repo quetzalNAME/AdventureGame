@@ -107,7 +107,7 @@ class Crocs extends AdventureScene {
         this.load.path = 'assets/';
         this.load.image('crocs', 'crocs.jpg');
         this.load.image('arrow', 'arrow.png');
-        this.load.image('drawcodile', 'cropcroc.png');
+        this.load.image('drawcodile', 'CropCroc.png');
     }
 
     onEnter() {
