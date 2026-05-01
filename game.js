@@ -1,6 +1,7 @@
 let alphabet_dict = {1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g', 8: 'h', 9: 'e', 10: 'j', 11: 'k', 12: 'l', 13: 'm', 14: 'n', 15: 'g', 16: 'p', 17: 'q', 18: 'r', 19: 's', 20: 't', 21: 'f', 22: 'v', 23: 'w', 24: 'b', 25: 'y', 26: 'z'};
 // some are remapped
-let parking_lane = alphabet_dict[Math.floor(Math.random() * 26) + 1].toUpperCase();
+let parking_rand = Math.floor(Math.random() * 26) + 1;
+let parking_lane = alphabet_dict[parking_rand].toUpperCase();
 
 class Front extends AdventureScene {
     constructor() {
@@ -20,10 +21,19 @@ class Front extends AdventureScene {
         this.add.image(this.w *0.3 - 75, this.w * 0.3 + 50, 'arrow').setAngle(-90 - 45).setAlpha(0.5);
         this.add.image(this.w *0.3 + 175, this.w * 0.3 + 50, 'arrow').setAngle(-90 + 45).setAlpha(0.5);
 
-        this.add.text(this.w * 0.05, this.w * 0.275 + 75, '\n🦩').setFontSize("150px")
+        this.flamingo = this.add.text(this.w * 0.05, this.w * 0.275 + 75, '\n🦩').setFontSize("150px")
             .setInteractive()
             .on('pointerover', () => {
                 this.showMessage('\n🦩🦩🦩🦩🦩🦩🦩🦩');
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: this.flamingo,
+                    x: -1000,
+                    y: -1000,
+                    duration: 1500,
+                    ease: 'quart.easeInOut'
+                })
             })
 
         let left = this.add.text(this.w * 0.3 - 100, this.w * 0.325, "Left")
@@ -57,6 +67,7 @@ class Otters extends AdventureScene {
         this.load.path = 'assets/';
         this.load.image('otters', 'otters.jpg');
         this.load.image('arrow', 'arrow.png');
+        this.load.image('otter', 'myOtterThing.png');
     }
 
     onEnter() {
@@ -74,6 +85,16 @@ class Otters extends AdventureScene {
             .on('pointerdown', () => {
                 this.gotoScene('crocs');
             })
+
+        this.add.image(this.w * 0.3, this.w * 0.3, 'otter')
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("True to life size.\n\nBE AFRAID.");
+            })
+            .on('pointerdown', () => {
+                this.showMessage("I made this asset, so I am obviously including it, but it came out kinda ugly.");
+            })
+
     }
 }
 
@@ -86,6 +107,7 @@ class Crocs extends AdventureScene {
         this.load.path = 'assets/';
         this.load.image('crocs', 'crocs.jpg');
         this.load.image('arrow', 'arrow.png');
+        this.load.image('drawcodile', 'cropcroc.png');
     }
 
     onEnter() {
@@ -110,10 +132,17 @@ class Crocs extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("Keep walking towards the Crocodiles.");
+                this.showMessage("Done exploring?");
             })
             .on('pointerdown', () => {
-                this.gotoScene('otters');
+                this.gotoScene('outro');
+            })
+
+        this.add.image(this.w * 0.3 + 100, this.w * 0.2, 'drawcodile')
+            .setInteractive()
+            .setScale(1.5)
+            .on('pointerover', () => {
+                this.showMessage("It's a... DRAWcodile!\n\nGet it?")
             })
     }
 }
@@ -127,6 +156,7 @@ class Tigers extends AdventureScene {
         this.load.path = 'assets/';
         this.load.image('tigers', 'tigers.jpg');
         this.load.image('arrow', 'arrow.png');
+        this.load.image('tiger', 'myTigerCROP.png');
     }
 
     onEnter() {
@@ -144,6 +174,16 @@ class Tigers extends AdventureScene {
             .on('pointerdown', () => {
                 this.gotoScene('gibbons');
             })
+
+        this.add.image(this.w * 0.3, this.w * 0.35 + 25, 'tiger')
+            .setInteractive()
+            .setScale(0.75)
+            .on('pointerover', () => {
+                this.showMessage("The Sumatran tiger, like many other animals in the Miami Zoo is endangered.\n\nCoincedence?\nUnlikely...")
+            })
+            .on('pointerdown', () => {
+                this.showMessage("The Sumatran tiger, like many other animals in the Miami Zoo is endangered.\n\nCoincedence?\nUnlikely...\n\nRawr.")
+            })
     }
 }
 
@@ -156,11 +196,24 @@ class Gibbons extends AdventureScene {
         this.load.path = 'assets/';
         this.load.image('gibbons', 'gibbons.jpg');
         this.load.image('arrow', 'arrow.png');
+        this.load.image('festus', 'festus_1.jpg');
+        this.load.audio('siamangcall', 'SIAMANG-GIBBONS-at-zoo-miami.mp3');
     }
 
     onEnter() {
         this.bg = this.add.image((1920 / 4) - 10, 1080 / 2, 'gibbons');
         this.bg.setScale(1.5);
+
+        this.add.image(this.w * 0.3 + 150, this.w * 0.25, 'festus')
+            .setInteractive()
+            .setScale(0.5)
+            .on('pointerover', () => {
+                this.showMessage("How could I draw my own Gibbon,\nwhen this image of Festus,\nthe ~54 year old Siamang, is already incredible?\n\n(CLICK TO LISTEN)")
+            })
+            .on('pointerdown', () => {
+                this.sound.play('siamangcall');
+                this.showMessage("SIAMANG-GIBBONS-at-\nzoo-miami.mp3");
+            })
             
         this.add.image(this.w *0.1 - 20, this.w * 0.5, 'arrow').setScale(2.5).setAngle(180);
             
@@ -180,10 +233,10 @@ class Gibbons extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("Keep walking towards the Gibbons.");
+                this.showMessage("Done exploring?");
             })
             .on('pointerdown', () => {
-                this.gotoScene('tigers');
+                this.gotoScene('outro');
             })
     }
 }
@@ -338,10 +391,42 @@ class Outro extends Phaser.Scene {
     constructor() {
         super('outro');
     }
+
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('shop', 'giftshop.jpg');
+    }
+
     create() {
-        this.add.text(50, 50, "That's all!").setFontSize(50);
-        this.add.text(50, 100, "Click anywhere to restart.").setFontSize(20);
-        this.input.on('pointerdown', () => this.scene.start('intro'));
+        this.bg = this.add.image(1920 / 2, 1080 / 2, 'shop');
+        this.bg.setScale(2);
+
+        this.uhoh = this.add.text(
+            150,
+            100 - 1000,
+`Another successful Zoo trip. Tradition fulfilled!
+
+But, wait. Where did you park?
+
+(You Won! Thanks for playing.)`,
+            {fontFamily: "Gill Sans MT", fontWeight: "bold", fontSize: "85px", color: "#fff", stroke: "#000", strokeThickness: 7, align: 'center',
+                shadow: {
+                    offsetX: 0,
+                    offsetY: 0,
+                    color: '#000',
+                    blur: 30,
+                    stroke: true,
+                    fill: true
+                },
+            }
+        );
+
+        this.tweens.add({
+            targets: this.uhoh,
+            y: 100,
+            duration: 1000,
+            ease: 'Quart.easeInOut'
+        });
     }
 }
 
