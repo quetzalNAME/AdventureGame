@@ -42,7 +42,7 @@ class AdventureScene extends Phaser.Scene {
      */
     create() {
         /** @type {number} Duration in ms of scene fade-in / fade-out. */
-        this.transitionDuration = 1000;
+        this.transitionDuration = 500;
 
         /** @type {number} Game width in scaled pixels (nominally 1920). */
         this.w = this.game.config.width;
@@ -100,7 +100,7 @@ class AdventureScene extends Phaser.Scene {
             targets: this.messageBox,
             alpha: { from: 1, to: 0 },
             easing: 'Quintic.in',
-            duration: 4 * this.transitionDuration
+            duration: 16 * this.transitionDuration
         });
     }
 
