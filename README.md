@@ -22,7 +22,6 @@ Experience requirements:
     - Flamingo at entrance (on click), all animals (on click), Santa
 
 Asset sources:
-- (For each image/audio/video asset used, describe how it was created. What tool did you use to create it? Was it based on another work? If so, how did you change it, and where can we learn more about the original work for comparison? Use [Markdown link syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links).)
 - Crocodile + Tiger: Hand drawn by me with my own two hands, then masking the shapes was done in Inkscape. [Croc Refrence](https://lirp.cdn-website.com/de903b7f/dms3rep/multi/opt/Croc+Exhibit+1-640w.jpg)
 - Otter: Digitally painted by me in Krita. [Otter](https://fergusonmuseum.org/wp-content/uploads/2020/03/River-Otter-tKoerner-USFWS.jpg)
 - Bad Omen Logo: Made by me in Inkscape.
