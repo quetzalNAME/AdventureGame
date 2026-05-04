@@ -66,7 +66,7 @@ class AdventureScene extends Phaser.Scene {
 
         this.inventoryBanner = this.add.text(this.w * 0.75 + this.s, this.h * 0.66)
             .setStyle({ fontSize: `${2 * this.s}px` })
-            .setText("Inventory")
+            .setText("Explore the Zoo:") // change bc no inventory
             .setAlpha(0);
 
         this.inventoryTexts = [];

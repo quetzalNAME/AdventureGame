@@ -19,7 +19,7 @@ Experience requirements:
 - **Many objects have `pointerdown` effects**:
     - All animals, eg. Festus (gibbon), croc
 - **Some objects are themselves animated**:
-    - Flamingo at entrance (on click), Santa
+    - Flamingo at entrance (on click), all animals (on click), Santa
 
 Asset sources:
 - (For each image/audio/video asset used, describe how it was created. What tool did you use to create it? Was it based on another work? If so, how did you change it, and where can we learn more about the original work for comparison? Use [Markdown link syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links).)
@@ -29,7 +29,7 @@ Asset sources:
 - Santa: The image of a Santa decoration from Zoo Miami was taken by me, the edited version was also made by me years ago with Android built-in image editing tools.
 - Festus PNG (Gibbon): [Zoo Miami](https://www.zoomiami.org/media-news/posts/celebrating-an-iconic-primate)
 - Backgrounds: I don't think the game is as meaningful without real pictures of the Zoo and it's animals. If I were in Miami, I could have taken them myself, but instead they were found in these locations: [parking](https://floridaphoenix.com/wp-content/uploads/2023/11/Miami-Wilds-proposed-site-credit-Bat-Conservation-International.jpg) [front](https://happyfamilyblog.com/wp-content/uploads/2016/08/IMG_9149.jpg) [otters](https://pbs.twimg.com/media/Dn3XrcbXoAUNBJb.jpg) [crocs](https://www.zoochat.com/community/media/florida-mission-everglades-american-crocodile-exhibit.457965/) [tigers](https://www.flickr.com/photos/9549670@N05/52569553421) [gibbons](https://www.youtube.com/watch?v=cOR7v_3HsQ0) [gift shop](https://www.zoomiami.org/zoo-gift-shop)
-- Audio: [Siamang](https://www.youtube.com/watch?v=sM1jEhsY0ww)
+- Audio: [Siamang](https://www.youtube.com/watch?v=sM1jEhsY0ww) [Croc Chomp](https://commons.wikimedia.org/wiki/File:Dragon_bite.ogg) [Santa Droning](https://commons.wikimedia.org/wiki/File:En-Santa_Claus.ogg)
 - Flamingo: `🦩` emoji
 
 
