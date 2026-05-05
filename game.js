@@ -667,6 +667,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     scene: [Logos, Intro, Front, Otters, Crocs, Tigers, Santa, Gibbons, Giraffes, Outro],
+    parent: "root",
     title: "Adventure Game",
 });
 
