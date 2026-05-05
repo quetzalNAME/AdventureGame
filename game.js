@@ -504,7 +504,7 @@ class Logos extends Phaser.Scene {
     }
 
     update(time) {
-        if (time/1000 > 5555.5 || Phaser.Input.Keyboard.JustDown(this.swap)) {
+        if (time/1000 > 5.5 || Phaser.Input.Keyboard.JustDown(this.swap)) {
             this.scene.start('intro');
         }
     }
