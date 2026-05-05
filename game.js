@@ -152,10 +152,10 @@ class Crocs extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("Done exploring?");
+                this.showMessage("Go and feed the giraffes.");
             })
             .on('pointerdown', () => {
-                this.gotoScene('outro');
+                this.gotoScene('giraffes');
             })
 
         this.croc = this.add.image(this.w * 0.3 + 100, this.w * 0.2, 'drawcodile')
@@ -366,11 +366,69 @@ class Gibbons extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("Done exploring?");
+                this.showMessage("Go and feed the giraffes.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('giraffes');
+            })
+    }
+}
+
+class Giraffes extends AdventureScene {
+    constructor() {
+        super("giraffes", "Giraffe Feeding.");
+    }
+
+    preload() {
+        this.load.path = 'assets/';
+        this.load.image('giraffe', 'giraffe.jpg');
+        this.load.image('arrow', 'arrow.png');
+        this.load.audio('chomp', 'Dragon_bite.ogg.mp3');
+    }
+
+    onEnter() {
+        this.bg = this.add.image((1920 / 4) + 215, 1080 / 2, 'giraffe');
+        this.bg.setScale(1.5).setCrop(0, 0, (1280*2.65)/3, 720);
+
+        this.add.image(this.w *0.6 + 100, this.w * 0.5, 'arrow').setScale(2.5);
+
+        this.showMessage('Lettuce Emojis 🥬, delicous.\n\nClick and drag to feed.');
+
+        this.lettuce_source = this.add.text(this.w * 0.55, this.w * 0.2, '\n🥬').setFontSize("250px")
+            .setShadow(0, 0, '#fff', 15, true, true)
+            .setInteractive({
+            draggable: true,
+            useHandCursor: true
+            });
+
+        this.lettuce = this.add.text(9999, this.w * 0.275 + 75, '\n🥬').setFontSize("175px")
+            .setShadow(0, 0, '#000', 15, true, true)
+            .setInteractive({
+            draggable: true,
+            useHandCursor: true
+            });
+        
+        this.lettuce_source.on('drag', (pointer, dragX, dragY) => {
+            this.lettuce.x = dragX ;
+            this.lettuce.y = dragY + 125;
+        });
+
+        this.lettuce_source.on('dragend', (pointer, dragX, dragY) => {
+            this.lettuce.x = 999999;
+            this.sound.play('chomp');
+            this.showMessage('" Thank you feeding me human.\n\nYou shall be spared during the uprising. "');
+        });
+        
+        let forward = this.add.text(this.w * 0.5 + 175, this.w * 0.5 - 20, "Onward!")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Done Exploring?");
             })
             .on('pointerdown', () => {
                 this.gotoScene('outro');
             })
+
     }
 }
 
@@ -383,6 +441,7 @@ class Logos extends Phaser.Scene {
         this.load.image('logo', 'badOmenlogo.png');
     }
     create() {
+        
         let logoScale = 0.6;
         let chosenScreenX = 1920;
         let chosenScreenY = 1080;
@@ -445,7 +504,7 @@ class Logos extends Phaser.Scene {
     }
 
     update(time) {
-        if (time/1000 > 5.5 || Phaser.Input.Keyboard.JustDown(this.swap)) {
+        if (time/1000 > 5555.5 || Phaser.Input.Keyboard.JustDown(this.swap)) {
             this.scene.start('intro');
         }
     }
@@ -607,7 +666,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Logos, Intro, Front, Otters, Crocs, Tigers, Santa, Gibbons, Outro],
+    scene: [Logos, Intro, Front, Otters, Crocs, Tigers, Santa, Gibbons, Giraffes, Outro],
     title: "Adventure Game",
 });
 
